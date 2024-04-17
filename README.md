@@ -1,0 +1,1 @@
+After browsing around and trying to make my system finally work, I decided to publish my personal software configuration guide created for myself to make it easier to reproduce my configuration steps in the future. Any advice or criticism is extremely welcome!

@@ -1,0 +1,93 @@
+cd gnome
+dconf load -f / < stevent-desktop
+sudo reboot
+ sudo swupd bundle-add kernel-native-dkms
+ sudo swupd bundle-add x11-server
+sudo reboot
+cd
+cd clr
+sudo rpm -U --nodeps ./cfs-zen-tweaks-1.2.0-Linux.rpm
+systemctl enable --now set-cfs-tweaks.service
+cd
+cd clr-stevent
+sudo rpm -U --nodeps ./cpupower-gui-1.0.0-2-omv2290.x86_64.rpm
+sudo rpm -U --nodeps ./ananicy-2.2.1-2-omv4090.noarch.rpm
+sudo rpm -U --nodeps ./schedtool-1.3.0-27.fc38.x86_64.rpm
+sudo rpm -U --nodeps ./c_cpufrequtils-008-3.x86_64.rpm
+sudo rpm -U --nodeps ./preload-0.6.4-17-omv4090.x86_64.rpm
+sudo rpm -U --nodeps ./gnome-startup-applications-44.0-1.fc38.x86_64.rpm
+sudo rpm -U --nodeps ./mutter-44.3-1.fc38.x86_64.rpm
+cd
+sudo swupd bundle-add devpkg-dbus devpkg-systemd dev-utils
+git clone https://github.com/FeralInteractive/gamemode.git 
+ cd gamemode
+ git checkout 1.4
+ ./bootstrap.sh
+gamemoded -r
+cd
+cd clr
+./cfs-zen-tweaks.sh
+cd
+cd solus
+./cpufreq.sh
+./cpufrequtils.sh
+cd
+cd zorin
+./debian12-gaming.sh
+flatpak install flathub com.system76.Popsicle
+sudo tee -a "/etc/clr-power-tweaks.conf" >/dev/null <<'EOF'
+/sys/kernel/debug/sched/latency_ns 12000000
+/sys/kernel/debug/sched/min_granularity_ns 1500000
+/sys/kernel/debug/sched/wakeup_granularity_ns 3000000
+/sys/kernel/debug/sched/migration_cost_ns 500000
+EOF
+
+sudo tee -a "/etc/clr-power-tweaks.conf" >/dev/null <<'EOF'
+/proc/sys/kernel/sched_autogroup_enabled 1
+EOF
+
+sudo tee -a "/etc/clr-power-tweaks.conf" >/dev/null <<'EOF'
+/sys/kernel/mm/transparent_hugepage/enabled madvise
+EOF
+
+cat /sys/devices/system/cpu/cpuidle/current_driver
+cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+sudo systemctl mask clr-power.timer
+echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+sudo echo 3900000 | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_min_freq
+sudo echo 3900000 | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_max_freq
+echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+sudo reboot
+sudo mkdir -p "/etc/kernel"
+sudo tee "/etc/kernel/timeout" >/dev/null <<'EOF'
+5
+EOF
+
+sudo tee "/etc/kernel/update_efi_vars" >/dev/null <<'EOF'
+false
+EOF
+
+git clone https://github.com/marioroy/clearmod
+cd clearmod
+mkdir -p ~/.local/share/bash-completion/completions
+cp -a share/bash-completion/completions/*    ~/.local/share/bash-completion/completions/
+./xm-install rt-preempt
+sudo reboot
+neofetch
+sudo reboot
+neofetch
+sudo clr-boot-manager update
+cd clr-stevent
+sudo sh ./VirtualBox-7.0.8-156879-Linux_amd64.run
+flatpak install flathub org.onlyoffice.desktopeditors
+flatpak install flathub com.system76.Popsicle
+flatpak install flathub com.github.tchx84.Flatseal
+flatpak install flathub net.nokyan.Resources
+sudo nautilus
+flatpak update
+cd colus
+cd solus
+cd tuxclocker
+sudo echo && ./run.sh
+sudo echo && ./run.sh

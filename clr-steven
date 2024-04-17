@@ -1,0 +1,147 @@
+neofetch
+flatpak install flathub com.anydesk.Anydesk
+neofetch
+sudo swupd autoupdate --disable
+sudo rm -rf /usr/share/xdg/autostart/org.gnome.Evolution-alarm-notify.desktop
+sudo rm -rf /usr/share/xdg/autostart/org.clearlinux.initFlathubRepo.desktop
+sudo echo '#' > /usr/share/dbus-1/services/org.gnome.Software.service
+sudo ln -sf /dev/null /usr/lib/sysctl.d/50-coredump.conf
+systemctl mask cupsd.service
+systemctl mask mcelog.service
+systemctl mask pacdiscovery.service
+systemctl mask pacrunner.service
+systemctl mask swupd-overdue.service
+systemctl mask wpa_supplicant.service
+systemctl mask cupsd.socket
+systemctl mask pcscd.socket
+systemctl mask motd-update.path 
+systemctl mask pacdiscovery.path 
+systemctl mask cupsd.service
+systemctl mask mcelog.service
+systemctl mask ModemManager.service 
+systemctl mask swap.target
+systemctl mask packagekit.service
+systemctl mask packagekit-offline-update.service
+systemctl enable fstrim.timer
+sudo sysctl vm.swappiness=0
+echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+sudo swupd bundle-add x11-tools
+sudo xset led 3
+sudo swupd bundle-add devpkg-dbus devpkg-systemd dev-utils
+git clone https://github.com/FeralInteractive/gamemode.git 
+ cd gamemode
+ git checkout 1.4
+ ./bootstrap.sh
+git clone https://github.com/Nefelim4ag/Ananicy.git /tmp/ananicy
+cd /tmp/ananicy
+sudo make install
+sudo systemctl enable ananicy
+sudo systemctl start ananicy
+sudo swupd bundle-add dnf
+sudo rpm -U --nodeps ./cfs-zen-tweaks-1.2.0-Linux.rpm
+systemctl enable --now set-cfs-tweaks.service
+flatpak install flathub com.mattjakeman.ExtensionManager
+sudo sysctl -w net.core.netdev_max_backlog = 16384
+sudo sysctl -w net.core.somaxconn = 8192
+sudo sysctl -w net.core.rmem_default = 1048576
+sudo sysctl -w net.core.rmem_max = 16777216
+sudo sysctl -w net.core.wmem_default = 1048576
+sudo sysctl -w net.core.wmem_max = 16777216
+sudo sysctl -w net.core.optmem_max = 65536
+sudo sysctl -w net.ipv4.tcp_rmem = 4096 1048576 2097152
+sudo sysctl -w net.ipv4.tcp_wmem = 4096 65536 16777216
+sudo sysctl -w net.ipv4.udp_rmem_min = 8192
+sudo sysctl -w net.ipv4.udp_wmem_min = 8192
+sudo sysctl -w net.ipv4.tcp_fastopen = 3
+sudo sysctl -w net.ipv4.tcp_max_syn_backlog = 8192
+sudo sysctl -w net.ipv4.tcp_max_tw_buckets = 2000000
+echo 'always' | sudo tee /sys/kernel/mm/transparent_hugepage/enabled
+sudo journalctl --vacuum-size=500M
+journalctl --vacuum-size=500M
+systemctl enable --now set-cfs-tweaks.service
+systemctl disable --now systemd-oomd
+sudo systemctl enable ananicy
+sudo systemctl start ananicy
+sudo sysctl vm.swappiness=0
+echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+gsettings set org.gnome.desktop.interface enable-animations false
+echo 'always' | sudo tee /sys/kernel/mm/transparent_hugepage/enabled
+nvidia-settings -a '[gpu:0]/GPUPowerMizerMode=1'
+nvidia-settings --assign CurrentMetaMode="nvidia-auto-select +0+0 { ForceFullCompositionPipeline = Off }"
+nvidia-settings --assign CurrentMetaMode="nvidia-auto-select +0+0 { ForceCompositionPipeline = Off }"
+/usr/bin/nvidia-settings -a 'SyncToVBlank=0'
+/usr/bin/nvidia-settings -a 'AllowFlipping=0'
+sudo nvidia-smi -pl 250
+nvidia-settings -a '[gpu:0]/GPUPowerMizerMode=1'
+sudo xset led 3
+neofetch
+sudo sysctl vm.swappiness=0
+echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+gsettings set org.gnome.desktop.interface enable-animations false
+echo 'always' | sudo tee /sys/kernel/mm/transparent_hugepage/enabled
+systemctl enable --now set-cfs-tweaks.service
+sudo systemctl enable ananicy
+sudo systemctl start ananicy
+sudo swupd bundle-add virt-manager-gui
+sudo swupd bundle-add clr-network-troubleshooter
+echo 'always' | sudo tee /sys/kernel/mm/transparent_hugepage/enabled
+sudo journalctl --vacuum-size=500M
+journalctl --vacuum-size=500M
+sudo systemctl disable NetworkManager-wait-online.service
+sudo systemctl disable systemd-udevd.service
+sudo systemctl disable systemd-journal-flush.service
+systemctl stop snapd.socket snapd.service
+sudo systemctl mask tracker-miner-fs-3.service tracker-store.service tracker-miner-fs.service tracker-miner-rss.service tracker-extract.service tracker-miner-apps.service tracker-writeback.service tracker-extract-3.service tracker-writeback-3.service tracker-xdg-portal-3.service tracker-miner-fs-control-3.service
+cd cpufreq
+sudo swupd bundle-add wget
+./install_extension.sh
+cd cpupower
+make install PREFIX=/home/stevent/.local
+git clone https://github.com/gicmo/gamemode-extension.git
+cd gamemode-extension
+sudo swupd bundle-add jq
+./make-zip.sh install 
+reboot
+sudo reboot
+sudo ./cfs-zen-tweaks/set-cfs-zen-tweaks.sh
+sudo nano /sys/devices/system/cpu/intel_pstate/status
+./Ananicy/package.sh debian
+sudo xset led 3
+neofetch
+sudo sysctl vm.swappiness=0
+sudo echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+sudo echo 'always' | sudo tee /sys/kernel/mm/transparent_hugepage/enabled
+sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+sudo systemctl enable --now set-cfs-tweaks.service
+sudo systemctl enable ananicy
+sudo systemctl start ananicy
+sudo nvidia-smi -pl 250
+nvidia-settings -a '[gpu:0]/GPUPowerMizerMode=1'
+echo 'always' | sudo tee /sys/kernel/mm/transparent_hugepage/enabled
+sudo journalctl --vacuum-size=500M
+journalctl --vacuum-size=500M
+systemctl enable --now set-cfs-tweaks.service
+systemctl disable --now systemd-oomd
+sudo systemctl enable ananicy
+sudo systemctl start ananicy
+sudo sysctl vm.swappiness=0
+echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+gsettings set org.gnome.desktop.interface enable-animations false
+echo 'always' | sudo tee /sys/kernel/mm/transparent_hugepage/enabled
+nvidia-settings -a '[gpu:0]/GPUPowerMizerMode=1'
+nvidia-settings --assign CurrentMetaMode="nvidia-auto-select +0+0 { ForceFullCompositionPipeline = Off }"
+nvidia-settings --assign CurrentMetaMode="nvidia-auto-select +0+0 { ForceCompositionPipeline = Off }"
+gamemoded -r
+git clone https://github.com/vagnum08/cpupower-gui.git
+cd cpupower-gui
+meson build --prefix /usr -Dsystemddir=<path-to-systemd-dir> -Dpkla=<true|false> -Duse_libexec=<true|false>
+ninja -C build
+ninja -C build install
+grep kvm /etc/group
+sudo usermod -a -G kvm stevent
+grep kvm /etc/group
+sudo systemctl enable libvirtd.service
+sudo systemctl start libvirtd.service
+sudo ./cfs-zen-tweaks/set-cfs-zen-tweaks.sh
+./Ananicy/package.sh debian
+ping 102.165.94.113
